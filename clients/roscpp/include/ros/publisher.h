@@ -54,7 +54,7 @@ namespace ros
     /**
      * \brief Publish a message on the topic associated with this Publisher.
      *
-     * This version of publish will allow fast intra-process message-passing in the future,
+     * This version of publish allows fast intra-process message-passing,
      * so you may not mutate the message after it has been passed in here (since it will be
      * passed directly into a callback function)
      *
