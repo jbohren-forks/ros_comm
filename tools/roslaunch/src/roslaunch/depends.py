@@ -96,12 +96,17 @@ def _get_arg_value(tag, context):
 
 def _parse_arg(tag, context):
     name = tag.attributes['name'].value
+    safe_list = ['math','acos','asin','atan','atan2','ceil','cos','bool','cosh','degrees','e','exp',
+            'fabs','factorial','float','floor','fmod','frexp','fsum','hex','hypot','int','isnan',
+            'ldexp','len','log','log10','long','max','min','modf','oct','pi','pow','radians','sin',
+            'sinh','sqrt','sum','tan','tanh','trunc']
+    safe_dict = dict([ (k, locals().get(k, None)) for k in safe_list ])
     if tag.attributes.has_key('if'):
-        val = resolve_args(tag.attributes['if'].value, context)
+        val = eval(tag.attributes['if'].value,{},safe_dict)
         if val == '1' or val == 'true':
             return (name, _get_arg_value(tag, context))
     elif tag.attributes.has_key('unless'):
-        val = resolve_args(tag.attributes['unless'].value, context)
+        val = eval(tag.attributes['unless'].value,{},safe_dict)
         if val == '0' or val == 'false':
             return (name, _get_arg_value(tag, context))
     else:
