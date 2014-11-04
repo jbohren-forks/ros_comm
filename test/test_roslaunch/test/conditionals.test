@@ -1,0 +1,313 @@
+<launch>
+  <!-- simple -->
+  <group ns="conditionals">
+    <group ns="simple">
+      <param if="true" name="ti1"  value="ti1" />
+      <param if="false" name="fi1"  value="fi1" />
+      <param if="1" name="ti2"  value="ti2" />
+      <param if="0" name="fi2"  value="fi2" />
+      <param unless="false" name="tu1"  value="tu1" />
+      <param unless="true" name="fu1"  value="fu1" />
+      <param unless="0" name="tu2"  value="tu2" />
+      <param unless="1" name="fu2"  value="fu2" />
+    </group>
+  </group>
+
+  <!-- arguments -->
+  <arg name="POSITIVE" value="true"/>
+  <arg name="NEGATIVE" value="false"/>
+  <group ns="conditionals">
+    <group ns="arguments">
+      <param if="$(arg POSITIVE)" name="ti1"  value="ti1" />
+      <param if="$(arg NEGATIVE)" name="fi1"  value="fi1" />
+      <param unless="$(arg NEGATIVE)" name="tu1"  value="tu1" />
+      <param unless="$(arg POSITIVE)" name="fu1"  value="fu1" />
+    </group>
+  </group>
+
+  <!-- bool_operations -->
+  <group ns="conditionals">
+     <group ns="bool_operations">
+<!--       <param if="bool(1==1)" name="ti1" value="ti1" /> 
+       <param if="1==0" name="fi1" value="fi1" />
+       <param if="0!=1" name="ti2" value="ti2" />
+       <param if="1!=1" name="fi2" value="fi2" />
+       <param if="0&lt;1" name="ti3" value="ti3" />
+       <param if="1&lt;1" name="fi3" value="fi3" />
+       <param if="1&gt;0" name="ti4" value="ti4" />
+       <param if="1&gt;1" name="fi4" value="fi4" />
+       <param if="0&lt;=1" name="ti5" value="ti5" />
+       <param if="1&lt;=1" name="ti6" value="ti6" />
+       <param if="1&lt;=0" name="fi5" value="fi6" />
+       <param if="1&gt;=0" name="ti7" value="ti7" />
+       <param if="1&gt;=1" name="ti8" value="ti8" />
+       <param if="0&gt;=1" name="fi7" value="fi7" />
+       <param if="~0" name="ti9" value="ti9" />
+       <param if="~1" name="fi9" value="fi9" />
+       <param if="1||0" name="ti10" value="ti10" />
+       <param if="0||0" name="fi10" value="fi10" />
+       <param if="1&amp;&amp;1" name="ti11" value="ti11" />
+       <param if="0&amp;&amp;0" name="fi11" value="fi11" />
+       <param unless="1==1" name="fu1" value="fu1" />
+       <param unless="1==0" name="tu1" value="tu1" />
+       <param unless="0!=1" name="fu2" value="fu2" />
+       <param unless="1!=1" name="tu2" value="tu2" />
+       <param unless="0&lt;1" name="fu3" value="fu3" />
+       <param unless="1&lt;1" name="tu3" value="tu3" />
+       <param unless="1&gt;0" name="fu4" value="fu4" />
+       <param unless="1&gt;1" name="tu4" value="tu4" />
+       <param unless="0&lt;=1" name="fu5" value="fu5" />
+       <param unless="1&lt;=1" name="fu6" value="fu6" />
+       <param unless="1&lt;=0" name="tu5" value="tu6" />
+       <param unless="1&gt;=0" name="fu7" value="fu7" />
+       <param unless="1&gt;=1" name="fu8" value="fu8" />
+       <param unless="0&gt;=1" name="tu7" value="tu7" />
+       <param unless="~0" name="fu9" value="fu9" />
+       <param unless="~1" name="tu9" value="tui9" />
+       <param unless="1||0" name="fu10" value="fu10" />
+       <param unless="0||0" name="tu10" value="tu10" />
+       <param unless="1&amp;&amp;1" name="fu11" value="fu11" />
+       <param unless="0&amp;&amp;0" name="tu11" value="tu11" /> -->
+     </group>
+   </group> 
+
+  <!-- bool_operations_arg -->
+  <arg name="POS" value="1"/>
+  <arg name="NEG" value="0"/> 
+  <group ns="conditionals">
+     <group ns="bool_operations_arg">
+       <param if="$(arg POS)==$(arg POS)" name="ti1" value="ti1" />
+       <param if="$(arg POS)==$(arg NEG)" name="fi1" value="fi1" />
+       <param if="$(arg NEG)!=$(arg POS)" name="ti2" value="ti2" />
+       <param if="$(arg POS)!=$(arg POS)" name="fi2" value="fi2" />
+       <param if="$(arg NEG)&lt;$(arg POS)" name="ti3" value="ti3" />
+       <param if="$(arg POS)&lt;$(arg POS)" name="fi3" value="fi3" />
+       <param if="$(arg POS)&gt;$(arg NEG)" name="ti4" value="ti4" />
+       <param if="$(arg POS)&gt;$(arg POS)" name="fi4" value="fi4" />
+       <param if="$(arg NEG)&lt;=$(arg POS)" name="ti5" value="ti5" />
+       <param if="$(arg POS)&lt;=$(arg POS)" name="ti6" value="ti6" />
+       <param if="$(arg POS)&lt;=$(arg NEG)" name="fi5" value="fi6" />
+       <param if="$(arg POS)&gt;=$(arg NEG)" name="ti7" value="ti7" />
+       <param if="$(arg POS)&gt;=$(arg POS)" name="ti8" value="ti8" />
+       <param if="$(arg NEG)&gt;=$(arg POS)" name="fi7" value="fi7" />
+       <param if="~$(arg NEG)" name="ti9" value="ti9" />
+       <param if="~$(arg POS)" name="fi9" value="fi9" />
+       <param if="$(arg POS)||$(arg NEG)" name="ti10" value="ti10" />
+       <param if="$(arg NEG)||$(arg NEG)" name="fi10" value="fi10" />
+       <param if="$(arg POS)&amp;&amp;$(arg POS)" name="ti11" value="ti11" />
+       <param if="$(arg NEG)&amp;&amp;$(arg NEG)" name="fi11" value="fi11" />
+       <param unless="$(arg POS)==$(arg POS)" name="fu1" value="fu1" />
+       <param unless="$(arg POS)==$(arg NEG)" name="tu1" value="tu1" />
+       <param unless="$(arg NEG)!=$(arg POS)" name="fu2" value="fu2" />
+       <param unless="$(arg POS)!=$(arg POS)" name="tu2" value="tu2" />
+       <param unless="$(arg NEG)&lt;$(arg POS)" name="fu3" value="fu3" />
+       <param unless="$(arg POS)&lt;$(arg POS)" name="tu3" value="tu3" />
+       <param unless="$(arg POS)&gt;$(arg NEG)" name="fu4" value="fu4" />
+       <param unless="$(arg POS)&gt;$(arg POS)" name="tu4" value="tu4" />
+       <param unless="$(arg NEG)&lt;=$(arg POS)" name="fu5" value="fu5" />
+       <param unless="$(arg POS)&lt;=$(arg POS)" name="fu6" value="fu6" />
+       <param unless="$(arg POS)&lt;=$(arg NEG)" name="tu5" value="tu6" />
+       <param unless="$(arg POS)&gt;=$(arg NEG)" name="fu7" value="fu7" />
+       <param unless="$(arg POS)&gt;=$(arg POS)" name="fu8" value="fu8" />
+       <param unless="$(arg NEG)&gt;=$(arg POS)" name="tu7" value="tu7" />
+       <param unless="~$(arg NEG)" name="fu9" value="fu9" />
+       <param unless="~$(arg POS)" name="tu9" value="tui9" />
+       <param unless="$(arg POS)||$(arg NEG)" name="fu10" value="fu10" />
+       <param unless="$(arg NEG)||$(arg NEG)" name="tu10" value="tu10" />
+       <param unless="$(arg POS)&amp;&amp;$(arg POS)" name="fu11" value="fu11" />
+       <param unless="$(arg NEG)&amp;&amp;$(arg NEG)" name="tu11" value="tu11" /> 
+     </group>
+   </group>
+
+  <!-- built_ins --> 
+  <group ns="conditionals">
+    <group ns="built_ins">
+      <param if="abs(1)" name="ti1"  value="ti1" />
+      <param if="abs(0)" name="fi1"  value="fi1" />
+      <param if="abs(-1)" name="ti2"  value="ti2" />
+      <param if="abs(a)" name="fi2"  value="fi2" />
+      <param unless="abs(0)" name="tu1"  value="tu1" />
+      <param unless="abs(1)" name="fu1"  value="fu1" />
+      <param unless="abs(false)" name="tu2"  value="tu2" />
+      <param unless="abs(-1)" name="fu2"  value="fu2" />
+      <param if="float(2)" name="ti3"  value="ti3" />
+      <param if="hex(1)" name="ti4"  value="ti4" />
+      <param if="len(a)" name="ti5"  value="ti5" />
+      <param if="int(1)" name="ti6"  value="ti6" />
+      <param if="max(1,0)" name="ti7"  value="ti7" />
+      <param if="min(1,0)" name="fi3"  value="fi3" />
+      <param if="oct(1)" name="ti8"  value="ti8" />
+      <param if="pow(1,0)" name="ti9"  value="ti9" />
+      <param if="sum(1,1,0)" name="ti10"  value="ti10" />
+     </group>
+  </group>
+
+  <!-- built_ins_arg -->
+  <arg name="one" value="1"/>
+  <arg name="zero" value="0"/>
+  <arg name="negative" value="-1"/>
+  <arg name="FALSE" value="false"/>  
+  <arg name="char_A" value="a"/>   
+  <group ns="conditionals">
+    <group ns="built_ins_arg">
+      <param if="abs($(arg one))" name="ti1"  value="ti1" />
+      <param if="abs($(arg zero))" name="fi1"  value="fi1" />
+      <param if="abs($(arg negative))" name="ti2"  value="ti2" />
+      <param if="abs($(arg FALSE))" name="fi2"  value="fi2" />
+      <param unless="abs($(arg zero))" name="tu1"  value="tu1" />
+      <param unless="abs($(arg one))" name="fu1"  value="fu1" />
+      <param unless="abs($(arg FALSE))" name="tu2"  value="tu2" />
+      <param unless="abs($(arg negative))" name="fu2"  value="fu2" />
+      <param if="float($(arg one))" name="ti3"  value="ti3" />
+      <param if="hex($(arg one))" name="ti4"  value="ti4" />
+      <param if="len($(arg char_A))" name="ti5"  value="ti5" />
+      <param if="int($(arg one))" name="ti6"  value="ti6" />
+      <param if="max($(arg one),$(arg zero))" name="ti7"  value="ti7" />
+      <param if="min($(arg one),$(arg zero))" name="fi3"  value="fi3" />
+      <param if="oct($(arg one))" name="ti8"  value="ti8" />
+      <param if="pow($(arg one),$(arg zero))" name="ti9"  value="ti9" />
+      <param if="sum($(arg one),$(arg one),$(arg zero))" name="ti10"  value="ti10" />
+    </group>
+  </group>
+
+<!-- built_ins_bool --> 
+  <group ns="conditionals">
+    <group ns="built_ins_bool">
+       <param if="abs(1)==pow(2,0)" name="ti1" value="ti1" />
+       <param if="abs(1)!=pow(2,0)" name="fi1" value="fi1" />
+       <param if="min(1,0)&lt;=pow(2,0)" name="ti2" value="ti2" />
+       <param if="abs(1)&gt;=oct(0)" name="fi2" value="fi2" />
+       <param if="min(1,0)&lt;pow(2,0)" name="ti3" value="ti3" />
+       <param if="abs(1)&gt;pow(2,0)" name="fi3" value="fi3" />
+       <param if="~oct(0)" name="ti4" value="ti4" />
+       <param if="abs(1)&amp;&amp;oct(0)" name="fi4" value="fi4" />
+       <param if="min(1,0)||pow(2,0)" name="ti5" value="ti5" />
+       <param unless="abs(1)==oct(0)" name="tu1" value="tu1" />
+       <param unless="abs(1)!=oct(0)" name="fu1" value="fu1" />
+       <param unless="abs(1)&lt;=oct(0)" name="tu2" value="tu2" />
+       <param unless="abs(1)&gt;=pow(2,0)" name="fu2" value="fu2" />
+       <param unless="abs(1)&lt;pow(2,0)" name="tu3" value="tu3" />
+       <param unless="abs(1)&gt;oct(0)" name="fu3" value="fu3" />
+       <param unless="~pow(2,0)" name="tu4" value="tu4" />
+       <param unless="abs(1)&amp;&amp;pow(2,0)" name="fu4" value="fu4" />
+       <param unless="min(1,0)||oct(0)" name="tu5" value="tu5" />
+    </group>
+  </group>
+
+<!-- built_ins_bool_arg -->
+  <arg name="set" value="1"/>
+  <arg name="reset" value="0"/> 
+  <group ns="conditionals">
+    <group ns="built_ins_bool_arg">
+       <param if="abs($(arg set))==pow(2,$(arg reset))" name="ti1" value="ti1" />
+       <param if="abs($(arg set))!=pow(2,$(arg reset))" name="fi1" value="fi1" />
+       <param if="min($(arg set),$(arg reset))&lt;=pow(2,$(arg reset))" name="ti2" value="ti2" />
+       <param if="abs($(arg set))&gt;=oct($(arg reset))" name="fi2" value="fi2" />
+       <param if="min($(arg set),$(arg reset))&lt;pow(2,$(arg reset))" name="ti3" value="ti3" />
+       <param if="abs($(arg set))&gt;pow(2,$(arg reset))" name="fi3" value="fi3" />
+       <param if="~oct($(arg reset))" name="ti4" value="ti4" />
+       <param if="abs($(arg set))&amp;&amp;oct($(arg reset))" name="fi4" value="fi4" />
+       <param if="min($(arg set),$(arg reset))||pow(2,$(arg reset))" name="ti5" value="ti5" />
+       <param unless="abs($(arg set))==oct($(arg reset))" name="tu1" value="tu1" />
+       <param unless="abs($(arg set))!=oct($(arg reset))" name="fu1" value="fu1" />
+       <param unless="abs($(arg set))&lt;=oct($(arg reset))" name="tu2" value="tu2" />
+       <param unless="abs($(arg set))&gt;=pow(2,$(arg reset))" name="fu2" value="fu2" />
+       <param unless="abs($(arg set))&lt;pow(2,$(arg reset))" name="tu3" value="tu3" />
+       <param unless="abs($(arg set))&gt;oct($(arg reset))" name="fu3" value="fu3" />
+       <param unless="~pow(2,$(arg reset))" name="tu4" value="tu4" />
+       <param unless="abs($(arg set))&amp;&amp;pow(2,$(arg reset))" name="fu4" value="fu4" />
+       <param unless="min($(arg set),$(arg reset))||oct($(arg reset))" name="tu5" value="tu5" />
+    </group>
+  </group>
+
+  <!-- math -->
+  <group ns="conditionals">
+     <group ns="math">
+      <param if="cos(0)" name="ti1"  value="ti1" />
+      <param if="cos(pi/2)" name="fi1"  value="fi1" />
+      <param unless="cos(0)" name="tu1"  value="tu1" />
+      <param unless="cos(pi/2)" name="fu1"  value="fu1" />
+      <param if="asin(0)" name="ti2"  value="ti2" /> 
+      <param if="acos(1)" name="fi2" value="fi2" />
+      <param if="atan(0)" name="ti3"  value="ti3" />
+      <param if="atan2(0,1)" name="ti4"  value="ti4" />
+      <param if="ceil(0.5)" name="ti5"  value="ti5" />
+      <param if="bool(1)" name="ti6"  value="ti6" />
+      <param if="cosh(0)" name="ti7"  value="ti7" />
+      <param if="degrees(2*pi/360)" name="fi3"  value="fi3" />
+      <param if="exp(0)" name="ti8"  value="ti8" />
+      <param if="fabs(-1)" name="ti9"  value="ti9" />
+      <param if="factorial(1)" name="ti10"  value="ti10" />
+      <param if="floor(1.5)" name="ti11"  value="ti11" />
+      <param if="fmod(3,2)" name="ti12" value="ti12" />
+      <param if="fsum(0,1,0)" name="ti13"  value="ti13" />
+      <param if="hypot(2)" name="ti14"  value="ti14" />
+      <param if="isnan(2)" name="ti15"  value="ti15" />
+      <param if="log(10,10)" name="ti16"  value="ti16" />
+      <param if="log10(10)" name="ti17"  value="ti17" />
+      <param if="radians(0)" name="fi4"  value="fi4" />
+      <param if="sin(0)" name="fi5"  value="fi5" />
+      <param if="sinh(0)" name="fi6"  value="ti6" />
+      <param if="sqrt(1)" name="ti18"  value="ti18" />
+      <param if="tan(1)" name="fi7"  value="fi7" />
+      <param if="tanh(0)" name="fi8"  value="fi8" />
+      <param if="trunc(1)" name="ti19"  value="ti19" />
+     </group>
+   </group>
+
+  <!-- math_arg -->
+  <arg name="ONE" value="1"/>
+  <arg name="ZERO" value="0"/>
+  <arg name="TWO" value="2"/>
+  <arg name="NEG_ONE" value="-1"/>
+  <arg name="TEN" value="10"/>
+  <group ns="conditionals">
+     <group ns="math_arg">
+      <param if="cos($(arg ZERO))" name="ti1"  value="ti1" />
+      <param if="cos(pi/$(arg TWO))" name="fi1"  value="fi1" />
+      <param unless="cos($(arg ZERO))" name="tu1"  value="tu1" />
+      <param unless="cos(pi/$(arg TWO))" name="fu1"  value="fu1" />
+      <param if="asin($(arg ZERO))" name="ti2"  value="ti2" /> 
+      <param if="acos($(arg ONE))" name="fi2" value="fi2" />
+      <param if="atan($(arg ZERO))" name="ti3"  value="ti3" />
+      <param if="atan2($(arg ZERO),1)" name="ti4"  value="ti4" />
+      <param if="ceil($(arg ZERO).5)" name="ti5"  value="ti5" />
+      <param if="bool($(arg ONE))" name="ti6"  value="ti6" />
+      <param if="cosh($(arg ZERO))" name="ti7"  value="ti7" />
+      <param if="degrees($(arg TWO)*pi/36$(arg ZERO))" name="fi3"  value="fi3" />
+      <param if="exp($(arg ZERO))" name="ti8"  value="ti8" />
+      <param if="fabs($(arg NEG_ONE))" name="ti9"  value="ti9" />
+      <param if="factorial($(arg ONE))" name="ti10"  value="ti10" />
+      <param if="floor($(arg ONE).5)" name="ti11"  value="ti11" />
+      <param if="fmod(3,$(arg TWO))" name="ti12" value="ti12" />
+      <param if="fsum($(arg ZERO),1,$(arg ZERO))" name="ti13"  value="ti13" />
+      <param if="hypot($(arg TWO))" name="ti14"  value="ti14" />
+      <param if="isnan($(arg TWO))" name="ti15"  value="ti15" />
+      <param if="log($(arg TEN))" name="ti16"  value="ti16" />
+      <param if="log10($(arg TEN),$(arg TEN))" name="ti17"  value="ti17" />
+      <param if="radians($(arg ZERO))" name="fi4"  value="fi4" />
+      <param if="sin($(arg ZERO))" name="fi5"  value="fi5" />
+      <param if="sinh($(arg ZERO))" name="fi6"  value="ti6" />
+      <param if="sqrt($(arg ONE))" name="ti18"  value="ti18" />
+      <param if="tan($(arg ONE))" name="fi7"  value="fi7" />
+      <param if="tanh($(arg ZERO))" name="fi8"  value="fi8" />
+      <param if="trunc($(arg ONE))" name="ti19"  value="ti19" /> 
+     </group>
+   </group>
+
+  <!-- math_bool -->
+  <group ns="conditionals">
+     <group ns="math_bool">
+
+     </group>
+   </group>
+
+  <!-- math_bool_arg -->
+  <group ns="conditionals">
+     <group ns="math_bool_arg">
+
+     </group>
+   </group>
+
+  <test test-name="conditionals" pkg="test_roslaunch" type="conditionals.py" />
+</launch>
