@@ -47,6 +47,10 @@ from rosgraph.names import make_global_ns, ns_join, PRIV_NAME, load_mappings, is
 yaml = None
 rosparam = None
 
+
+from .conditional_parser import ConditionalParser
+
+
 class LoadException(RLException):
     """Error loading data as specified (e.g. cannot find included files, etc...)"""
     pass
@@ -88,11 +92,23 @@ def convert_value(value, type_):
     elif type_ == 'double':
         return float(value)
     elif type_ == 'bool' or type_ == 'boolean':
-        value = value.lower()
-        if value == 'true' or value == '1':
+        lval = value.lower()
+        if lval == 'true' or value == '1':
             return True
-        elif value == 'false' or value == '0':
+        elif lval == 'false' or value == '0':
             return False
+        else:
+            try:
+                cp = ConditionalParser()
+                return cp.eval_conditional(value)
+            except Exception as ex:
+                raise ValueError("Could not parse logical expression in roslaunch XML: \"%s\": %s" % (value, str(ex)))
+            #except SyntaxError as ex:
+                #raise ValueError("Could not parse logical expression in roslaunch XML: %s: \"%s\"" % (ex.msg, ex.text))
+            #except NameError as ex:
+                #raise ValueError("Unknown symbol in logical expression in roslaunch XML: %s" % (ex.message))
+            #except Exception as ex:
+                #raise ValueError("Failed to parse logical expression in roslaunch XML: %s" % str(ex))
         raise ValueError("%s is not a '%s' type"%(value, type_))
     else:
         raise ValueError("Unknown type '%s'"%type_)        

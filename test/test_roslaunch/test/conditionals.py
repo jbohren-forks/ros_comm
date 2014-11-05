@@ -33,21 +33,23 @@
 
 PKG = 'test_roslaunch'
 
-import os, sys, unittest
+import sys
+import unittest
 
-import xmlrpclib
 import rostest
-import rospkg
 
 import rosgraph
 master = rosgraph.Master('conditionals')
+
+
 def get_param(*args):
     return master.getParam(*args)
-    
-## Test Roslaunch 'param' tags
-class TestConditionals(unittest.TestCase):
 
-    ## test simple constant values
+
+class TestConditionals(unittest.TestCase):
+    """Test Roslaunch 'param' tags"""
+
+    # test simple constant values
     def test_simple(self):
         true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2']
         for k in true_param_keys:
@@ -57,7 +59,7 @@ class TestConditionals(unittest.TestCase):
         for k, v in params.items():
             self.assertFalse(k[0] == 'f')
 
-    ## test arguments
+    # test arguments
     def test_arguments(self):
         true_param_keys = ['ti1', 'tu1']
         for k in true_param_keys:
@@ -67,90 +69,91 @@ class TestConditionals(unittest.TestCase):
         for k, v in params.items():
             self.assertFalse(k[0] == 'f')
 
-      ## test boolean operations
-      def test_bool_operations(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4', 'tu4', 'ti5', 
-                  'tu5', 'ti6', 'tu6', 'ti7', 'tu7', 'ti8', 'tu8', 'ti9', 'tu9', 'ti10', 
-                  'tu10', 'ti11', 'tu11']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/bool_operations/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/bool_operations')                                                  
-              self.assertFalse(k[0] == 'f')
+    # test boolean operations
+    def test_bool_operations(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4',
+                           'tu4', 'ti5', 'tu5', 'ti6', 'tu6', 'ti7', 'tu7',
+                           'ti8', 'tu8', 'ti9', 'tu9', 'ti10', 'tu10', 'ti11',
+                           'tu11']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/bool_operations/'+k), k)
 
-    ## test boolean operations with arguments
-      def test_bool_operations_arg(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4', 'tu4', 'ti5', 
-                  'tu5', 'ti6', 'tu6', 'ti7', 'tu7', 'ti8', 'tu8', 'ti9', 'tu9', 'ti10', 
-                  'tu10', 'ti11', 'tu11']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/bool_operations_arg/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/bool_operations_arg')                                                  
-              self.assertFalse(k[0] == 'f')
+        params = get_param('conditionals/bool_operations')
+        self.assertFalse(k[0] == 'f')
 
-      ## test built in functions
-      def test_built_ins(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'ti4', 'ti5', 'ti6', 'ti7', 
-                  'ti8', 'ti9', 'ti10']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/built_ins/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/built_ins')                                                  
-              self.assertFalse(k[0] == 'f')
+    # test boolean operations with arguments
+    def test_bool_operations_arg(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4',
+                           'tu4', 'ti5', 'tu5', 'ti6', 'tu6', 'ti7', 'tu7',
+                           'ti8', 'tu8', 'ti9', 'tu9', 'ti10', 'tu10', 'ti11',
+                           'tu11']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/bool_operations_arg/'+k), k)
 
-      ## test built in functions with arguments
-      def test_built_ins_arg(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'ti4', 'ti5', 'ti6', 'ti7', 
-                  'ti8', 'ti9', 'ti10']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/built_ins_arg/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/built_ins_arg')                                                  
-              self.assertFalse(k[0] == 'f')
+        params = get_param('conditionals/bool_operations_arg')
+        self.assertFalse(k[0] == 'f')
 
-    ## test built in functions with bool operators
-      def test_built_ins_bool(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4', 'tu4', 'ti5', 
-                  'tu5']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/built_ins_bool/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/built_ins_bool')                                                  
-              self.assertFalse(k[0] == 'f')
+    # test built in functions
+    def test_built_ins(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'ti4', 'ti5',
+                           'ti6', 'ti7', 'ti8', 'ti9', 'ti10']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/built_ins/'+k), k)
 
-    ## test built in functions with bool operators and arguments
-      def test_built_ins_bool_arg(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4', 'tu4', 'ti5', 
-                  'tu5']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/built_ins_bool_arg/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/built_ins_bool_arg')                                                  
-              self.assertFalse(k[0] == 'f')
+        params = get_param('conditionals/built_ins')
+        self.assertFalse(k[0] == 'f')
 
-    ## test math
-      def test_math(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'ti3', 'ti4', 'ti5', 'ti6', 'ti7', 'ti8', 
-                  'ti9', 'ti10', 'ti11', 'ti12', 'ti13', 'ti14', 'ti15', 'ti16', 'ti17', 
-                  'ti18', 'ti19']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/math/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/math')                                                  
-              self.assertFalse(k[0] == 'f')
+    # test built in functions with arguments
+    def test_built_ins_arg(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'ti4', 'ti5',
+                           'ti6', 'ti7', 'ti8', 'ti9', 'ti10']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/built_ins_arg/'+k), k)
 
-    ## test math with arguments
-      def test_math_arg(self):                                                                
-          true_param_keys = ['ti1', 'tu1', 'ti2', 'ti3', 'ti4', 'ti5', 'ti6', 'ti7', 'ti8', 
-                  'ti9', 'ti10', 'ti11', 'ti12', 'ti13', 'ti14', 'ti15', 'ti16', 'ti17', 
-                  'ti18', 'ti19']
-          for k in true_param_keys:                                                            
-              self.assertEquals(get_param('conditionals/math_arg/'+k), k)                     
-                                                                                               
-          params = get_param('conditionals/math_arg')                                                  
-              self.assertFalse(k[0] == 'f')
+        params = get_param('conditionals/built_ins_arg')
+        self.assertFalse(k[0] == 'f')
+
+    # test built in functions with bool operators
+    def test_built_ins_bool(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4',
+                           'tu4', 'ti5', 'tu5']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/built_ins_bool/'+k), k)
+
+        params = get_param('conditionals/built_ins_bool')
+        self.assertFalse(k[0] == 'f')
+
+    # test built in functions with bool operators and arguments
+    def test_built_ins_bool_arg(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'tu2', 'ti3', 'tu3', 'ti4',
+                           'tu4', 'ti5', 'tu5']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/built_ins_bool_arg/'+k), k)
+
+        params = get_param('conditionals/built_ins_bool_arg')
+        self.assertFalse(k[0] == 'f')
+
+    # test math
+    def test_math(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'ti3', 'ti4', 'ti5', 'ti6',
+                           'ti7', 'ti8', 'ti9', 'ti10', 'ti11', 'ti12', 'ti13',
+                           'ti14', 'ti15', 'ti16', 'ti17', 'ti18', 'ti19']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/math/'+k), k)
+
+        params = get_param('conditionals/math')
+        self.assertFalse(k[0] == 'f')
+
+    # test math with arguments
+    def test_math_arg(self):
+        true_param_keys = ['ti1', 'tu1', 'ti2', 'ti3', 'ti4', 'ti5', 'ti6',
+                           'ti7', 'ti8', 'ti9', 'ti10', 'ti11', 'ti12', 'ti13',
+                           'ti14', 'ti15', 'ti16', 'ti17', 'ti18', 'ti19']
+        for k in true_param_keys:
+            self.assertEquals(get_param('conditionals/math_arg/'+k), k)
+
+        params = get_param('conditionals/math_arg')
+        self.assertFalse(k[0] == 'f')
 
 if __name__ == '__main__':
     rostest.rosrun(PKG, sys.argv[0], TestConditionals, sys.argv)
-    

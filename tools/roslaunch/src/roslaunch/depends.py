@@ -46,6 +46,7 @@ from xml.dom import Node as DomNode
 import rospkg
 
 from .substitution_args import resolve_args
+from .loader import convert_value
 
 NAME="roslaunch-deps"
 
@@ -95,18 +96,12 @@ def _get_arg_value(tag, context):
         raise RoslaunchDepsException("No value for arg [%s]"%(name))
 
 def _parse_arg(tag, context):
-    name = tag.attributes['name'].value
-    safe_list = ['math','acos','asin','atan','atan2','ceil','cos','bool','cosh','degrees','e','exp',
-            'fabs','factorial','float','floor','fmod','frexp','fsum','hex','hypot','int','isnan',
-            'ldexp','len','log','log10','long','max','min','modf','oct','pi','pow','radians','sin',
-            'sinh','sqrt','sum','tan','tanh','trunc']
-    safe_dict = dict([ (k, locals().get(k, None)) for k in safe_list ])
     if tag.attributes.has_key('if'):
-        val = eval(tag.attributes['if'].value,{},safe_dict)
+        val = convert_value(tag.attributes['if'], 'bool')
         if val == '1' or val == 'true':
             return (name, _get_arg_value(tag, context))
     elif tag.attributes.has_key('unless'):
-        val = eval(tag.attributes['unless'].value,{},safe_dict)
+        val = convert_value(tag.attributes['unless'], 'bool')
         if val == '0' or val == 'false':
             return (name, _get_arg_value(tag, context))
     else:

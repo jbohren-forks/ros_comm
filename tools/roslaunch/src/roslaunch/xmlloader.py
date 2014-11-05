@@ -73,16 +73,19 @@ def ifunless_test(obj, tag, context):
     if_val, unless_val = obj.opt_attrs(tag, context, ['if', 'unless'])
     if if_val is not None and unless_val is not None:
         raise XmlParseException("cannot set both 'if' and 'unless' on the same tag")
-    if if_val is not None:
-        if_val = loader.convert_value(if_val, 'bool')
-        if if_val:
+    try:
+        if if_val is not None:
+            if_val = loader.convert_value(if_val, 'bool')
+            if if_val:
+                return True
+        elif unless_val is not None:
+            unless_val = loader.convert_value(unless_val, 'bool')
+            if not unless_val:
+                return True
+        else:
             return True
-    elif unless_val is not None:
-        unless_val = loader.convert_value(unless_val, 'bool')
-        if not unless_val:
-            return True
-    else:
-        return True
+    except ValueError as err:
+        raise XmlParseException("Bad roslaunch guard expression: %s\n%s" % (tag.toxml(), str(err)))
     return False
     
 def ifunless(f):
